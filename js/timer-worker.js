@@ -26,7 +26,7 @@ self.onmessage = function (e) {
       } else {
         self.postMessage({ type: "tick", remaining });
       }
-    }, 100);
+    }, 200);
   } 
   
   else if (action === "pause") {
