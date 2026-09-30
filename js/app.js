@@ -378,6 +378,7 @@
 
   async function startTimer() {
     clearVisualAlarm();
+    const wasPaused = state.paused;
     if (!state.running && !state.paused && !prepareSession()) return;
     await unlockAudio();
     if (silentAudio) silentAudio.play().catch(() => {});
@@ -399,7 +400,7 @@
       action: "start",
       sequence: state.sequence,
       loopCount: state.loops,
-      resume: state.paused
+      resume: wasPaused
     });
   }
 
@@ -491,7 +492,11 @@
       speakCompletion();
       triggerNotification();
       triggerVisualAlarm();
-      openReflection();
+      void persistCompletionRecord().catch((error) => {
+        console.warn("Could not persist completed session", error);
+        state.pendingCompletion = null;
+        openReflection();
+      });
     }
   }
 
@@ -646,8 +651,10 @@
 
   async function requestWakeLock() {
     if (!("wakeLock" in navigator)) return;
+    if (state.wakeLock) return;
     try {
       state.wakeLock = await navigator.wakeLock.request("screen");
+      state.wakeLock.addEventListener?.("release", () => { state.wakeLock = null; });
     } catch {}
   }
 
@@ -679,17 +686,31 @@
     reflectionModal.classList.remove("hidden");
   }
 
-  async function saveReflection(save = true) {
+  async function persistCompletionRecord() {
     const record = {
       completedAt: new Date().toISOString(),
       dateKey: dateKey(),
       totalSeconds: Math.round(state.sessionTotalMs / 1000),
       blocks: state.sequence.map((item) => ({ name: item.name, seconds: Math.round(item.durationMs / 1000) })),
       loops: state.loops,
-      rating: save ? Number(focusRating.value) : null,
-      note: save ? reflectionNote.value.trim() : ""
+      rating: null,
+      note: ""
     };
-    if (save) await idbAdd("sessions", record);
+    const id = await idbAdd("sessions", record);
+    state.pendingCompletion = { ...record, id };
+    await refreshAnalytics();
+    await openReflection();
+  }
+
+  async function saveReflection(save = true) {
+    if (state.pendingCompletion && save) {
+      await idbPut("sessions", {
+        ...state.pendingCompletion,
+        rating: Number(focusRating.value),
+        note: reflectionNote.value.trim()
+      });
+    }
+    state.pendingCompletion = null;
     reflectionModal.classList.add("hidden");
     await refreshAnalytics();
   }
@@ -1070,7 +1091,12 @@
     });
 
     document.addEventListener("visibilitychange", async () => {
-      if (document.visibilityState === "visible" && state.running) await requestWakeLock();
+      if (document.visibilityState === "hidden") {
+        state.wakeLock = null;
+      } else if (document.visibilityState === "visible" && state.running) {
+        state.wakeLock = null;
+        await requestWakeLock();
+      }
     });
   }
 

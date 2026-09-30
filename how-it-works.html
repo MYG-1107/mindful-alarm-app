@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1329">
+  <meta name="description" content="How ZenTimer works, the problem it solves, who it helps, its technical architecture, current capabilities and future product roadmap.">
+  <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>How ZenTimer Works — System, Problem & Roadmap</title>
+</head>
+<body class="info-page">
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-icon" aria-hidden="true">🧘</div>
+        <div>
+          <h1>ZenTimer</h1>
+          <p>System architecture, real-world value & roadmap</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <a class="top-nav-link" href="index.html">Open timer</a>
+      </div>
+    </header>
+
+    <main class="guide-layout">
+      <section class="guide-hero glass">
+        <span class="eyebrow">HOW THE SYSTEM WORKS</span>
+        <h2>A calm execution layer for structured focus and mindfulness.</h2>
+        <p class="lead">ZenTimer turns a simple countdown into a complete workflow: define an intention, chain timed stages, run them reliably, receive gentle completion cues, reflect, and learn from your history without sending session data to a ZenTimer server.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-sm" href="index.html">Start a session</a>
+          <a class="btn btn-secondary btn-sm" href="#roadmap">View future advancements</a>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="guide-heading">
+          <span class="eyebrow">01 · THE PROBLEM</span>
+          <h2>What problem is ZenTimer designed to solve?</h2>
+          <p>Many people can start a timer. The harder problem is maintaining a complete routine without repeated setup, noisy interruptions, context switching, or unnecessary data collection.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="story-card glass"><span class="number-badge">A</span><h3>Manual context switching</h3><p>A morning routine may need meditation, breathwork and journaling; a study block may alternate work and recovery. Recreating every timer adds friction.</p></article>
+          <article class="story-card glass"><span class="number-badge">B</span><h3>Attention-breaking alerts</h3><p>Long sessions need time awareness, but an aggressive alarm can become the interruption it was supposed to prevent.</p></article>
+          <article class="story-card glass"><span class="number-badge">C</span><h3>Quiet environments</h3><p>Libraries, shared offices and classrooms may not allow loud alerts. People still need a reliable visual completion signal.</p></article>
+          <article class="story-card glass"><span class="number-badge">D</span><h3>Progress without a data cloud</h3><p>Habit history is useful, but personal routines and notes do not need to leave the device just to show a streak or export a log.</p></article>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="guide-heading">
+          <span class="eyebrow">02 · THE SOLUTION</span>
+          <h2>From intention to outcome in one continuous workflow.</h2>
+        </div>
+        <div class="system-flow">
+          <article class="flow-step glass"><span>01</span><h3>Define</h3><p>Choose a quick preset, create one timer, or build a multi-stage routine.</p></article>
+          <div class="flow-arrow">→</div>
+          <article class="flow-step glass"><span>02</span><h3>Execute</h3><p>A Web Worker calculates remaining time against timestamps, reducing sensitivity to ordinary tab throttling.</p></article>
+          <div class="flow-arrow">→</div>
+          <article class="flow-step glass"><span>03</span><h3>Support</h3><p>Ambient sound, gentle interval chimes, Wake Lock and optional notifications support the session.</p></article>
+          <div class="flow-arrow">→</div>
+          <article class="flow-step glass"><span>04</span><h3>Complete</h3><p>Audio, voice and a quiet visual signal can announce completion without forcing one interaction style.</p></article>
+          <div class="flow-arrow">→</div>
+          <article class="flow-step glass"><span>05</span><h3>Reflect</h3><p>A short focus rating and note can be captured immediately after the session.</p></article>
+          <div class="flow-arrow">→</div>
+          <article class="flow-step glass"><span>06</span><h3>Learn</h3><p>Local analytics turn completed sessions into totals, streaks, heatmaps and exportable records.</p></article>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="guide-heading">
+          <span class="eyebrow">03 · TECHNICAL ARCHITECTURE</span>
+          <h2>What is happening underneath the interface?</h2>
+          <p>The project deliberately uses browser-native capabilities so it stays easy to inspect, deploy and run as a static GitHub Pages application.</p>
+        </div>
+        <div class="architecture-grid">
+          <article class="arch-card glass"><strong>UI layer</strong><span>HTML + CSS</span><p>Responsive dashboard, routine builder, reflection modal, Zen Mode and accessibility-focused controls.</p></article>
+          <article class="arch-card glass"><strong>Timing engine</strong><span>Web Worker</span><p>Runs the countdown independently from the main UI thread and advances stages and loops from timestamp calculations.</p></article>
+          <article class="arch-card glass"><strong>Audio engine</strong><span>Web Audio API</span><p>Creates procedural ambient noise, a 432/436 Hz stereo tone pair and gentle chimes without a streaming service.</p></article>
+          <article class="arch-card glass"><strong>Local data</strong><span>IndexedDB</span><p>Stores sessions, routines, streak data and the selected custom audio Blob in the browser.</p></article>
+          <article class="arch-card glass"><strong>Offline layer</strong><span>PWA + Service Worker</span><p>Caches the application shell so the app can launch offline after the service worker has installed its cache.</p></article>
+          <article class="arch-card glass"><strong>Device capabilities</strong><span>Browser APIs</span><p>Optional Notifications, Media Session and Screen Wake Lock extend the experience where the browser supports them.</p></article>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="guide-heading">
+          <span class="eyebrow">04 · REAL-WORLD PEOPLE</span>
+          <h2>Where does this become useful beyond a demo?</h2>
+        </div>
+        <div class="use-case-grid">
+          <article class="use-case glass"><h3>🎓 Students</h3><p>Example: 45 min study → 10 min recovery → 20 min revision, repeated without touching the timer after starting.</p><span>Value: less setup friction</span></article>
+          <article class="use-case glass"><h3>💼 Remote & office workers</h3><p>Example: 50 min deep work → 10 min break, with an optional visual completion signal for shared workspaces.</p><span>Value: structured focus without noise</span></article>
+          <article class="use-case glass"><h3>🧘 Mindfulness practitioners</h3><p>Example: 20 min meditation → 5 min breathwork → 10 min journaling, then a private reflection.</p><span>Value: one uninterrupted practice flow</span></article>
+          <article class="use-case glass"><h3>✍️ Writers & creators</h3><p>Run repeatable deep-work blocks while using ambient sound and export session notes into a personal knowledge system.</p><span>Value: focus + portable records</span></article>
+          <article class="use-case glass"><h3>🔇 Quiet environments</h3><p>Visual alarms, tab-title changes and optional OS notifications provide completion awareness without requiring a loud bell.</p><span>Value: works with quiet-room norms</span></article>
+          <article class="use-case glass"><h3>🌐 Low-connectivity settings</h3><p>Once the PWA cache is installed, the application shell is available locally instead of depending on a live server for every screen.</p><span>Value: resilience after first load</span></article>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="guide-heading">
+          <span class="eyebrow">05 · PROBLEM → SOLUTION MAP</span>
+          <h2>How each capability contributes to the product goal.</h2>
+        </div>
+        <div class="solution-table glass">
+          <div class="solution-row solution-head"><strong>Real-world friction</strong><strong>ZenTimer response</strong><strong>Outcome</strong></div>
+          <div class="solution-row"><span>Repeatedly configuring timers</span><span>Routine blocks + repeat loops</span><span>One start action for the whole sequence</span></div>
+          <div class="solution-row"><span>Distracting background noise</span><span>Procedural ambient sound + fade-out</span><span>Supportive sound that disappears before finish</span></div>
+          <div class="solution-row"><span>Missing the end in a quiet room</span><span>Visual pulse + tab-title signal</span><span>Non-audio completion awareness</span></div>
+          <div class="solution-row"><span>Wanting progress without cloud storage</span><span>IndexedDB analytics + local exports</span><span>Private history with user-controlled files</span></div>
+          <div class="solution-row"><span>Long sessions becoming time-blind</span><span>Optional interval chimes</span><span>Gentle temporal anchors</span></div>
+          <div class="solution-row"><span>Switching between timer and notes</span><span>Post-session reflection</span><span>Capture the experience while context is fresh</span></div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="roadmap">
+        <div class="guide-heading">
+          <span class="eyebrow">06 · ADVANCEMENT ROADMAP</span>
+          <h2>What would turn this into a stronger production system?</h2>
+          <p>These are future directions, not claims that the current version already supports them.</p>
+        </div>
+        <div class="roadmap-grid">
+          <article class="roadmap-card glass"><span class="phase">PHASE 1 · PRODUCT FOUNDATION</span><h3>Routine intelligence</h3><p>Routine favorites, duplicate/edit actions, named presets, scheduled routines and better cross-session summaries.</p></article>
+          <article class="roadmap-card glass"><span class="phase">PHASE 2 · PERSONALIZATION</span><h3>Adaptive sessions</h3><p>Let users set goals such as “protect a 90-minute focus window” and generate a suitable block plan from their own saved patterns.</p></article>
+          <article class="roadmap-card glass"><span class="phase">PHASE 3 · MOBILE</span><h3>Companion app shell</h3><p>Wrap the web experience for Android/iOS when stronger background guarantees, richer notifications or hardware integrations are required.</p></article>
+          <article class="roadmap-card glass"><span class="phase">PHASE 4 · INTEROPERABILITY</span><h3>Calendar & knowledge tools</h3><p>Optional calendar import and export connectors, plus first-class formats for Obsidian, Notion and standard calendar files.</p></article>
+          <article class="roadmap-card glass"><span class="phase">PHASE 5 · PRIVACY</span><h3>Optional encrypted sync</h3><p>A future opt-in sync layer could use end-to-end encryption so users can move routines between devices without making the local-first mode disappear.</p></article>
+          <article class="roadmap-card glass"><span class="phase">PHASE 6 · QUALITY</span><h3>Production-grade reliability</h3><p>Add automated browser tests, accessibility audits, storage migration tests, telemetry-free diagnostics and explicit platform capability checks.</p></article>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="guide-heading">
+          <span class="eyebrow">07 · VALIDATOR NOTES</span>
+          <h2>What this system can—and cannot—promise.</h2>
+        </div>
+        <div class="validator-grid">
+          <article class="validator-card glass"><strong>Can do</strong><p>Run structured timed routines, keep local progress, work from cached app files after installation, offer multiple completion modes, and export user-created session records.</p></article>
+          <article class="validator-card glass"><strong>Depends on the browser</strong><p>Notifications, Wake Lock, Media Session, audio behavior and install prompts vary by browser and device. A browser page is not equivalent to a native alarm service.</p></article>
+          <article class="validator-card glass"><strong>Not safety-critical</strong><p>Do not use the web timer as the sole mechanism for medical, emergency, industrial or other safety-critical timing requirements.</p></article>
+          <article class="validator-card glass"><strong>Not medical treatment</strong><p>The app supports mindfulness and focus routines; it does not diagnose, treat or replace professional medical or mental-health care.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <nav class="footer-nav">
+        <a href="index.html">Timer</a><span>•</span>
+        <a href="how-it-works.html">How it works</a><span>•</span>
+        <a href="privacy.html">Privacy</a><span>•</span>
+        <a href="terms.html">Terms</a>
+      </nav>
+      <p class="copyright">© 2026 ZenTimer · Built as a local-first focus system</p>
+    </footer>
+  </div>
+</body>
+</html>

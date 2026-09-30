@@ -6,7 +6,7 @@
   "display": "standalone",
   "background_color": "#07101f",
   "theme_color": "#0b1329",
-  "description": "Offline-friendly routine, mindfulness and focus timer with private local analytics.",
+  "description": "Local-first routine, mindfulness and focus timer with private analytics, gentle cues and offline support after caching.",
   "icons": [
     {
       "src": "assets/icons/icon-192.png",

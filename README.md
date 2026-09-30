@@ -1,13 +1,21 @@
 # ZenTimer 🧘
 
+> A local-first focus and mindfulness system—not just a countdown timer.
+
 ZenTimer is a local-first mindfulness, focus and routine timer built with standard HTML, CSS and JavaScript. It is designed to work well on desktop and mobile, including low-connectivity environments after the first cached visit.
+
+## Why this project exists
+
+ZenTimer addresses a practical workflow problem: people often need a sequence of focus, recovery and reflection blocks, but ordinary timers make them repeatedly reconfigure sessions and choose between noisy alerts, manual tracking or cloud-based history. ZenTimer combines those steps into one browser-native flow while keeping the user in control of local data.
+
+See the dedicated product/system guide: `how-it-works.html`.
 
 ## Included productivity features
 
 - Multi-stage routine builder with reusable blocks, templates, custom ordering and repeat loops.
 - Pomodoro-style sequence template (`25m deep work → 5m break`, repeated 4 times).
-- PWA manifest and service worker caching for offline launches.
-- Procedural ambient audio using Web Audio API: Brown Noise, Gentle Rain and a 432/436 Hz binaural mode.
+- PWA manifest and same-origin service worker caching for offline launches after the application shell has been cached.
+- Procedural ambient audio using Web Audio API: Brown Noise, Gentle Rain and a 432/436 Hz stereo tone pair (4 Hz difference).
 - Automatic ambient fade during the final 10 seconds of the total session.
 - IndexedDB session history, focus ratings, reflection notes, total hours and streak calculations.
 - Weekly and six-month SVG heatmaps.
@@ -42,6 +50,38 @@ mindful-alarm-app/
     └── workflows/
         └── deploy.yml
 ```
+
+## System architecture
+
+```text
+User intent
+   ↓
+Routine / single timer
+   ↓
+Web Worker timing engine ──→ Stage / loop transitions
+   ↓
+Ambient audio + gentle cues + optional device capabilities
+   ↓
+Completion signal
+   ↓
+Reflection
+   ↓
+IndexedDB session record ──→ Heatmaps / streaks / Markdown / CSV
+
+PWA Service Worker ──→ Caches the static application shell
+```
+
+## Real-world use
+
+- **Students:** study → break → revision sequences without timer reconfiguration.
+- **Remote and office workers:** deep-work blocks with quiet completion signals.
+- **Mindfulness practitioners:** meditation → breathwork → journaling as one routine.
+- **Writers and creators:** repeatable focus blocks plus portable session notes.
+- **Quiet spaces:** visual completion signals when audio is inappropriate.
+
+## Important limitations
+
+A browser is not a native alarm daemon. Background execution, notifications, Wake Lock, audio playback and installation prompts depend on the browser and operating system. ZenTimer is intended for personal focus and mindfulness workflows, not medical, emergency, industrial or other safety-critical timing.
 
 ## Run locally
 

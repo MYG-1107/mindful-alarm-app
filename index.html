@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0b1329">
   <meta name="description" content="ZenTimer is an offline-friendly mindfulness, focus and routine timer with breathing mode, ambient sound, local analytics and PWA support.">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/svg+xml" href="assets/icons/icon-192.png">
+  <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
   <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
   <link rel="stylesheet" href="css/styles.css">
   <title>ZenTimer — Mindful Focus & Routine Timer</title>
@@ -22,6 +22,7 @@
         </div>
       </div>
       <div class="topbar-actions">
+        <a class="top-nav-link" href="how-it-works.html">How it works</a>
         <button class="icon-btn" id="installBtn" title="Install ZenTimer" hidden>⇩</button>
         <button class="icon-btn" id="zenBtn" title="Zen Mode (Esc)">◌</button>
       </div>
@@ -77,6 +78,27 @@
         </div>
       </section>
 
+      <section class="product-story">
+        <article class="story-card glass">
+          <span class="eyebrow">THE PROBLEM</span>
+          <h2>Focus tools usually stop at a countdown.</h2>
+          <p>People still have to switch timers between meditation, breaks, journaling or Pomodoro blocks, tolerate distracting alerts, and often give up control of their data.</p>
+        </article>
+        <article class="story-card glass">
+          <span class="eyebrow">THE SYSTEM RESPONSE</span>
+          <h2>One calm workflow from start to reflection.</h2>
+          <p>ZenTimer chains timed stages, keeps timing resilient in a browser worker, fades ambient sound before the finish, offers silent completion cues, and stores progress locally for later review.</p>
+        </article>
+        <article class="story-card glass">
+          <span class="eyebrow">REAL-WORLD FIT</span>
+          <h2>Useful for study, work, mindfulness and quiet spaces.</h2>
+          <p>Students, remote workers, meditators, writers and library users can run structured sessions without another subscription, another tab, or a cloud account.</p>
+        </article>
+        <div class="story-cta">
+          <a class="btn btn-primary btn-sm" href="how-it-works.html">See the system architecture & roadmap →</a>
+        </div>
+      </section>
+
       <section class="grid-2">
         <article class="panel glass">
           <div class="subheader">
@@ -114,7 +136,7 @@
                 <option value="off">Off</option>
                 <option value="brown">Brown Noise</option>
                 <option value="rain">Gentle Rain</option>
-                <option value="binaural">432 Hz Binaural</option>
+                <option value="binaural">4 Hz Binaural · 432/436 Hz</option>
               </select>
             </label>
             <label class="toggle compact">
@@ -294,6 +316,8 @@
 
     <footer>
       <nav class="footer-nav">
+        <a href="how-it-works.html">How it works</a>
+        <span>•</span>
         <a href="privacy.html">Privacy</a>
         <span>•</span>
         <a href="terms.html">Terms</a>
