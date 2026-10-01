@@ -1,12 +1,19 @@
 {
-  "name": "ZenTimer \u2014 Mindful Focus & Routine Timer",
+  "name": "ZenTimer — Mindful Focus & Routine Timer",
   "short_name": "ZenTimer",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#07101f",
-  "theme_color": "#0b1329",
-  "description": "Local-first routine, mindfulness and focus timer with private analytics, gentle cues and offline support after caching.",
+  "theme_color": "#07101f",
+  "description": "Local-first timer for mindfulness, focus, Pomodoro-style routines and quiet completion alerts.",
+  "categories": [
+    "productivity",
+    "health",
+    "lifestyle"
+  ],
   "icons": [
     {
       "src": "assets/icons/icon-192.png",
@@ -19,6 +26,30 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "20 minute focus",
+      "short_name": "20 min",
+      "url": "./#session",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Build a routine",
+      "short_name": "Routine",
+      "url": "./#routine",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

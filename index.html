@@ -2,40 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1329">
-  <meta name="description" content="ZenTimer is an offline-friendly mindfulness, focus and routine timer with breathing mode, ambient sound, local analytics and PWA support.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07101f">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="ZenTimer is a local-first mindfulness, focus and routine timer. Start quickly, build timed routines, use quiet alerts, and keep your session history on your device.">
+  <meta name="keywords" content="mindfulness timer, focus timer, pomodoro timer, routine timer, meditation timer, offline timer, privacy-first productivity">
+  <meta property="og:title" content="ZenTimer — Mindful Focus & Routine Timer">
+  <meta property="og:description" content="A calm, local-first timer for structured focus, mindfulness and repeatable routines.">
+  <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
-  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/icon-192.png">
   <link rel="stylesheet" href="css/styles.css">
   <title>ZenTimer — Mindful Focus & Routine Timer</title>
 </head>
 <body>
+  <a class="skip-link" href="#mainContent">Skip to the timer</a>
+
   <div class="app-shell" id="appShell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo-icon" aria-hidden="true">🧘</div>
-        <div>
-          <h1>ZenTimer</h1>
-          <p>Mindful focus, routines & quiet progress</p>
-        </div>
-      </div>
+    <header class="topbar site-header">
+      <a class="brand brand-link" href="index.html" aria-label="ZenTimer home">
+        <span class="logo-icon" aria-hidden="true">🧘</span>
+        <span>
+          <strong>ZenTimer</strong>
+          <small>Mindful focus, routines & quiet progress</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#session">Timer</a>
+        <a href="#routine">Routines</a>
+        <a href="#progress">Progress</a>
+        <a href="how-it-works.html">How it works</a>
+      </nav>
       <div class="topbar-actions">
-        <a class="top-nav-link" href="how-it-works.html">How it works</a>
-        <button class="icon-btn" id="installBtn" title="Install ZenTimer" hidden>⇩</button>
-        <button class="icon-btn" id="zenBtn" title="Zen Mode (Esc)">◌</button>
+        <span id="networkStatus" class="status-chip" role="status" aria-live="polite">Checking connection…</span>
+        <button class="icon-btn" id="installBtn" title="Install ZenTimer" aria-label="Install ZenTimer" hidden>⇩</button>
+        <button class="icon-btn" id="zenBtn" title="Zen Mode (Esc)" aria-label="Enter Zen Mode">◌</button>
       </div>
     </header>
 
-    <main class="dashboard">
-      <section class="timer-card glass" aria-labelledby="timerTitle">
+    <div id="appNotice" class="app-notice" role="status" aria-live="polite" hidden></div>
+
+    <main class="dashboard" id="mainContent">
+      <section class="hero-panel glass">
+        <div class="hero-copy">
+          <span class="eyebrow">A CALM TOOL FOR STRUCTURED TIME</span>
+          <h1>Plan the session once. Stay with the session.</h1>
+          <p class="hero-lead">ZenTimer combines a reliable browser timer, multi-stage routines, quiet completion signals and local progress into one focused workspace.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#session">Start a session</a>
+            <a class="btn btn-secondary" href="#routine">Build a routine</a>
+            <a class="text-action" href="how-it-works.html">Understand the system →</a>
+          </div>
+          <div class="trust-row" aria-label="ZenTimer product principles">
+            <span>✓ No account required</span>
+            <span>✓ Local-first session data</span>
+            <span>✓ Offline-ready after caching</span>
+          </div>
+        </div>
+        <aside class="hero-side" aria-label="Quick starting points">
+          <span class="eyebrow">START HERE</span>
+          <div class="starter-card">
+            <strong>Need a quick focus block?</strong>
+            <span>Choose 20 minutes, press Start, and adjust nothing else.</span>
+            <a href="#session">Use 20 min</a>
+          </div>
+          <div class="starter-card">
+            <strong>Need a full routine?</strong>
+            <span>Try Meditation → Breathwork → Journaling or Pomodoro x4.</span>
+            <a href="#routine">Open routine builder</a>
+          </div>
+        </aside>
+      </section>
+
+      <section class="how-start" aria-labelledby="startTitle">
+        <div class="section-intro">
+          <span class="eyebrow">IN 30 SECONDS</span>
+          <h2 id="startTitle">Three steps to get moving</h2>
+        </div>
+        <div class="start-grid">
+          <article class="start-step glass"><span class="step-number">01</span><div><strong>Choose time</strong><p>Use a preset or enter your own duration.</p></div></article>
+          <article class="start-step glass"><span class="step-number">02</span><div><strong>Press Start</strong><p>The timer runs in its own Web Worker.</p></div></article>
+          <article class="start-step glass"><span class="step-number">03</span><div><strong>Finish & reflect</strong><p>Get a gentle cue, then save a note if useful.</p></div></article>
+        </div>
+      </section>
+
+      <section class="timer-card glass" id="session" aria-labelledby="timerTitle">
         <div class="section-header">
           <div>
             <span class="eyebrow">SESSION TIMER</span>
             <h2 id="timerTitle">Your next calm block</h2>
+            <p class="muted">The essential controls stay here. Everything else is optional.</p>
           </div>
-          <span class="status-badge" id="statusBadge">Ready</span>
+          <span class="status-badge" id="statusBadge" role="status" aria-live="polite">Ready</span>
         </div>
 
         <div class="stage-strip" id="stageStrip" aria-live="polite">
@@ -43,7 +102,7 @@
             <span class="stage-label">Now</span>
             <strong id="currentStageName">Single Timer</strong>
           </div>
-          <div class="stage-progress"><span id="stageProgressBar"></span></div>
+          <div class="stage-progress" aria-hidden="true"><span id="stageProgressBar"></span></div>
           <div class="stage-meta">
             <span id="stageCounter">1 / 1</span>
             <span id="loopCounter">Loop 1 / 1</span>
@@ -56,54 +115,36 @@
           <span id="sessionTotal">20m total</span>
         </div>
 
-        <div class="controls">
-          <button id="startBtn" class="btn btn-primary">Start Session</button>
+        <div class="controls primary-controls">
+          <button id="startBtn" class="btn btn-primary btn-large">Start Session</button>
           <button id="pauseBtn" class="btn btn-secondary" disabled>Pause</button>
           <button id="resetBtn" class="btn btn-danger">Reset</button>
         </div>
 
         <div class="preset-wrap">
           <div class="subheader">
-            <span class="eyebrow">QUICK PRESETS</span>
+            <div>
+              <span class="eyebrow">QUICK PRESETS</span>
+              <span class="muted-inline">Good starting points for common sessions.</span>
+            </div>
             <span class="hint">Keys 1–6</span>
           </div>
           <div class="preset-buttons">
             <button class="btn-preset" data-mins="5">1 · 5m</button>
             <button class="btn-preset" data-mins="10">2 · 10m</button>
             <button class="btn-preset" data-mins="15">3 · 15m</button>
-            <button class="btn-preset" data-mins="20">4 · 20m</button>
+            <button class="btn-preset active" data-mins="20">4 · 20m</button>
             <button class="btn-preset" data-mins="30">5 · 30m</button>
             <button class="btn-preset" data-mins="60">6 · 60m</button>
           </div>
         </div>
       </section>
 
-      <section class="product-story">
-        <article class="story-card glass">
-          <span class="eyebrow">THE PROBLEM</span>
-          <h2>Focus tools usually stop at a countdown.</h2>
-          <p>People still have to switch timers between meditation, breaks, journaling or Pomodoro blocks, tolerate distracting alerts, and often give up control of their data.</p>
-        </article>
-        <article class="story-card glass">
-          <span class="eyebrow">THE SYSTEM RESPONSE</span>
-          <h2>One calm workflow from start to reflection.</h2>
-          <p>ZenTimer chains timed stages, keeps timing resilient in a browser worker, fades ambient sound before the finish, offers silent completion cues, and stores progress locally for later review.</p>
-        </article>
-        <article class="story-card glass">
-          <span class="eyebrow">REAL-WORLD FIT</span>
-          <h2>Useful for study, work, mindfulness and quiet spaces.</h2>
-          <p>Students, remote workers, meditators, writers and library users can run structured sessions without another subscription, another tab, or a cloud account.</p>
-        </article>
-        <div class="story-cta">
-          <a class="btn btn-primary btn-sm" href="how-it-works.html">See the system architecture & roadmap →</a>
-        </div>
-      </section>
-
-      <section class="grid-2">
+      <section class="grid-2" aria-label="Session setup">
         <article class="panel glass">
           <div class="subheader">
             <div>
-              <span class="eyebrow">SINGLE TIMER</span>
+              <span class="eyebrow">SIMPLE TIMER</span>
               <h3>Set your base duration</h3>
             </div>
             <span class="hint">HH : MM</span>
@@ -111,23 +152,24 @@
           <div class="time-input-group">
             <label class="input-field">
               <span>Hours</span>
-              <input type="number" id="hours" min="0" max="23" value="0" inputmode="numeric">
+              <input type="number" id="hours" min="0" max="23" value="0" inputmode="numeric" aria-label="Hours">
             </label>
-            <span class="colon">:</span>
+            <span class="colon" aria-hidden="true">:</span>
             <label class="input-field">
               <span>Minutes</span>
-              <input type="number" id="minutes" min="0" max="59" value="20" inputmode="numeric">
+              <input type="number" id="minutes" min="0" max="59" value="20" inputmode="numeric" aria-label="Minutes">
             </label>
           </div>
+          <p class="helper-text">Use this for one uninterrupted block. For multiple stages, use the routine builder below.</p>
         </article>
 
         <article class="panel glass">
           <div class="subheader">
             <div>
-              <span class="eyebrow">AMBIENT SOUND</span>
-              <h3>Choose your background</h3>
+              <span class="eyebrow">AMBIENT SUPPORT</span>
+              <h3>Optional background sound</h3>
             </div>
-            <span class="hint">Auto-fade at 0:10</span>
+            <span class="hint">Fades near finish</span>
           </div>
           <div class="sound-grid">
             <label class="select-field">
@@ -139,49 +181,52 @@
                 <option value="binaural">4 Hz Binaural · 432/436 Hz</option>
               </select>
             </label>
-            <label class="toggle compact">
-              <input type="checkbox" id="chimeToggle" checked>
-              <span>Completion chime</span>
-            </label>
-            <label class="toggle compact">
-              <input type="checkbox" id="voiceToggle" checked>
-              <span>Voice announcement</span>
-            </label>
+            <label class="toggle compact"><input type="checkbox" id="chimeToggle" checked><span>Completion chime</span></label>
+            <label class="toggle compact"><input type="checkbox" id="voiceToggle" checked><span>Voice announcement</span></label>
           </div>
         </article>
       </section>
 
-      <section class="panel glass">
+      <section class="panel glass" id="routine" aria-labelledby="routineTitle">
         <div class="section-header">
           <div>
             <span class="eyebrow">ROUTINE BUILDER</span>
-            <h2>Chain timed blocks into one session</h2>
-            <p class="muted">Build meditation → breathwork → journaling or a Pomodoro loop without reconfiguring the timer.</p>
+            <h2 id="routineTitle">Run several stages as one session</h2>
+            <p class="muted">Example: 20 min Meditation → 5 min Breathwork → 10 min Journaling.</p>
           </div>
           <span class="chip" id="routineDurationChip">0m</span>
         </div>
 
+        <div class="template-grid">
+          <button type="button" class="template-card" data-template="morning"><strong>Morning Reset</strong><span>20m meditate · 5m breathe · 10m journal</span></button>
+          <button type="button" class="template-card" data-template="pomodoro"><strong>Pomodoro x4</strong><span>25m deep work · 5m break × 4</span></button>
+          <button type="button" class="template-card" data-template="deepwork"><strong>Deep Work</strong><span>50m focus · 10m recovery</span></button>
+        </div>
+
         <div class="routine-toolbar">
-          <select id="routineTemplate" aria-label="Routine templates">
-            <option value="">Templates…</option>
-            <option value="morning">Morning Reset</option>
-            <option value="pomodoro">Pomodoro x4</option>
-            <option value="deepwork">Deep Work + Break</option>
-          </select>
+          <label class="select-field routine-template-field">
+            <span>Or choose a template</span>
+            <select id="routineTemplate" aria-label="Routine templates">
+              <option value="">Templates…</option>
+              <option value="morning">Morning Reset</option>
+              <option value="pomodoro">Pomodoro x4</option>
+              <option value="deepwork">Deep Work + Break</option>
+            </select>
+          </label>
           <label class="number-field">
             <span>Repeat routine</span>
-            <input type="number" id="routineLoops" min="1" max="12" value="1">
+            <input type="number" id="routineLoops" min="1" max="12" value="1" aria-label="Routine repeat count">
           </label>
-          <button class="btn btn-secondary btn-sm" id="saveRoutineBtn">Save Routine</button>
+          <button class="btn btn-secondary btn-sm" id="saveRoutineBtn">Save routine</button>
           <button class="btn btn-secondary btn-sm" id="clearRoutineBtn">Clear</button>
         </div>
 
         <div id="routineList" class="routine-list"></div>
 
         <div class="routine-add">
-          <input id="blockName" maxlength="42" placeholder="Block name (e.g. Meditation)">
-          <input id="blockMinutes" type="number" min="0" max="240" placeholder="min">
-          <input id="blockSeconds" type="number" min="0" max="59" placeholder="sec">
+          <input id="blockName" maxlength="42" placeholder="Block name (e.g. Meditation)" aria-label="Block name">
+          <input id="blockMinutes" type="number" min="0" max="240" placeholder="min" aria-label="Block minutes">
+          <input id="blockSeconds" type="number" min="0" max="59" placeholder="sec" aria-label="Block seconds">
           <button class="btn btn-primary btn-sm" id="addBlockBtn">+ Add block</button>
         </div>
 
@@ -196,66 +241,52 @@
         </div>
       </section>
 
-      <section class="grid-2">
-        <article class="panel glass">
-          <div class="subheader">
-            <div>
-              <span class="eyebrow">INTERVAL CHIMES</span>
-              <h3>Soft time-awareness anchors</h3>
-            </div>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="intervalToggle">
-            <span>Repeat a gentle chime during long sessions</span>
-          </label>
-          <label class="select-field">
-            <span>Chime every</span>
-            <select id="intervalMinutes">
-              <option value="5">5 minutes</option>
-              <option value="10" selected>10 minutes</option>
-              <option value="15">15 minutes</option>
-              <option value="20">20 minutes</option>
-            </select>
-          </label>
-        </article>
-
-        <article class="panel glass">
-          <div class="subheader">
-            <div>
-              <span class="eyebrow">QUIET WORKSPACE</span>
-              <h3>Alerts without sound</h3>
-            </div>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="visualAlarmToggle" checked>
-            <span>Pulse the screen and tab title on completion</span>
-          </label>
-          <button class="btn-link" id="notifyBtn">Enable OS notifications</button>
-        </article>
-      </section>
-
-      <section class="panel glass">
+      <section class="panel glass" id="customize" aria-labelledby="customizeTitle">
         <div class="section-header">
           <div>
-            <span class="eyebrow">KEYBOARD</span>
-            <h2>Power-user shortcuts</h2>
+            <span class="eyebrow">OPTIONAL CONTROLS</span>
+            <h2 id="customizeTitle">Make the session fit your environment</h2>
+            <p class="muted">Keep these defaults unless you have a specific need.</p>
           </div>
-          <span class="hint">Work without the mouse</span>
         </div>
-        <div class="shortcut-grid">
-          <span><kbd>Space</kbd> Start / Pause</span>
-          <span><kbd>R</kbd> Reset</span>
-          <span><kbd>Esc</kbd> Zen Mode</span>
-          <span><kbd>1–6</kbd> Quick presets</span>
+        <div class="customize-grid">
+          <article class="setting-card">
+            <span class="setting-icon" aria-hidden="true">🔔</span>
+            <div>
+              <h3>Mid-session chimes</h3>
+              <p>Use a soft time anchor during long sessions.</p>
+              <label class="toggle"><input type="checkbox" id="intervalToggle"><span>Enable interval chimes</span></label>
+              <label class="select-field"><span>Every</span><select id="intervalMinutes"><option value="5">5 minutes</option><option value="10" selected>10 minutes</option><option value="15">15 minutes</option><option value="20">20 minutes</option></select></label>
+            </div>
+          </article>
+          <article class="setting-card">
+            <span class="setting-icon" aria-hidden="true">🔇</span>
+            <div>
+              <h3>Quiet workspace</h3>
+              <p>Finish without a loud alert in a library or shared office.</p>
+              <label class="toggle"><input type="checkbox" id="visualAlarmToggle" checked><span>Pulse screen + tab title</span></label>
+              <button class="btn-link" id="notifyBtn">Enable OS notifications</button>
+            </div>
+          </article>
+          <article class="setting-card">
+            <span class="setting-icon" aria-hidden="true">⌨</span>
+            <div>
+              <h3>Keyboard control</h3>
+              <p>Start, pause, reset or enter Zen Mode without leaving the keyboard.</p>
+              <div class="shortcut-grid compact-shortcuts">
+                <span><kbd>Space</kbd> Start / Pause</span><span><kbd>R</kbd> Reset</span><span><kbd>Esc</kbd> Zen Mode</span><span><kbd>1–6</kbd> Presets</span>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="panel glass" id="analyticsSection">
+      <section class="panel glass" id="progress" aria-labelledby="progressTitle">
         <div class="section-header">
           <div>
-            <span class="eyebrow">PRIVATE ANALYTICS</span>
-            <h2>Progress stays on this device</h2>
-            <p class="muted">Sessions, streaks and reflections are stored in IndexedDB. Nothing is uploaded.</p>
+            <span class="eyebrow">PRIVATE PROGRESS</span>
+            <h2 id="progressTitle">Review your practice without a cloud account</h2>
+            <p class="muted">Completed sessions, notes, streaks and custom routines stay in browser storage on this device.</p>
           </div>
           <button class="btn btn-secondary btn-sm" id="clearAnalyticsBtn">Clear history</button>
         </div>
@@ -266,72 +297,60 @@
           <div class="stat"><strong id="sessionCount">0</strong><span>Sessions</span></div>
         </div>
         <div class="heatmap-grid">
-          <div>
-            <div class="heatmap-title">Last 5 weeks</div>
-            <div id="weeklyHeatmap" class="heatmap"></div>
-          </div>
-          <div>
-            <div class="heatmap-title">Last 6 months</div>
-            <div id="monthlyHeatmap" class="heatmap"></div>
-          </div>
+          <div><div class="heatmap-title">Last 5 weeks</div><div id="weeklyHeatmap" class="heatmap"></div></div>
+          <div><div class="heatmap-title">Last 6 months</div><div id="monthlyHeatmap" class="heatmap"></div></div>
+        </div>
+        <div class="recent-block">
+          <div class="subheader"><strong>Recent reflections</strong><span class="hint">Export anytime</span></div>
+          <div id="recentSessions" class="recent-sessions"><p class="muted">Complete a session to see your private reflections here.</p></div>
+          <div class="export-actions"><button class="btn-link" id="exportMarkdownBtn">Export Markdown</button><button class="btn-link" id="exportCsvBtn">Export CSV</button></div>
         </div>
       </section>
 
-      <section class="panel glass">
-        <div class="section-header">
-          <div>
-            <span class="eyebrow">CUSTOM BELL</span>
-            <h2>Use your own MP3 or WAV</h2>
-            <p class="muted">The file is stored as a browser-local Blob in IndexedDB; it is never sent to a server.</p>
+      <section class="grid-2">
+        <article class="panel glass">
+          <div class="section-header">
+            <div><span class="eyebrow">CUSTOM BELL</span><h3>Use your own MP3 or WAV</h3><p class="muted">Stored locally as a browser Blob; nothing is uploaded by this app.</p></div>
           </div>
-        </div>
-        <div id="dropZone" class="drop-zone" tabindex="0">
-          <input id="audioFileInput" type="file" accept=".mp3,.wav,audio/mpeg,audio/wav" hidden>
-          <strong>Drop a .mp3 or .wav here</strong>
-          <span>or <button class="btn-link inline" id="browseAudioBtn">browse from device</button></span>
-        </div>
-        <div class="custom-audio-row">
-          <div id="customAudioName" class="muted">No custom bell selected</div>
-          <div class="inline-actions">
-            <button class="btn btn-secondary btn-sm" id="previewAudioBtn" disabled>Preview</button>
-            <button class="btn btn-danger btn-sm" id="deleteAudioBtn" disabled>Remove</button>
+          <div id="dropZone" class="drop-zone" tabindex="0">
+            <input id="audioFileInput" type="file" accept=".mp3,.wav,audio/mpeg,audio/wav" hidden>
+            <strong>Drop a .mp3 or .wav here</strong>
+            <span>or <button class="btn-link inline" id="browseAudioBtn">browse from device</button></span>
           </div>
-        </div>
-      </section>
+          <div class="custom-audio-row"><div id="customAudioName" class="muted">No custom bell selected</div><div class="inline-actions"><button class="btn btn-secondary btn-sm" id="previewAudioBtn" disabled>Preview</button><button class="btn btn-danger btn-sm" id="deleteAudioBtn" disabled>Remove</button></div></div>
+        </article>
 
-      <section class="panel glass">
-        <div class="section-header">
-          <div>
-            <span class="eyebrow">NOTES</span>
-            <h2>Last saved reflections</h2>
+        <article class="panel glass value-panel">
+          <span class="eyebrow">WHY ZEN TIMER?</span>
+          <h3>It solves the friction around the timer.</h3>
+          <p>Instead of switching tools between work, breaks, mindfulness and reflection, the app keeps the whole session in one place.</p>
+          <div class="value-list">
+            <span>→ Less manual reconfiguration</span>
+            <span>→ Quiet completion options</span>
+            <span>→ Progress without a mandatory account</span>
+            <span>→ One repeatable workflow</span>
           </div>
-          <button class="btn-link" id="exportMarkdownBtn">Export Markdown</button>
-          <button class="btn-link" id="exportCsvBtn">Export CSV</button>
-        </div>
-        <div id="recentSessions" class="recent-sessions">
-          <p class="muted">Complete a session to see your private reflections here.</p>
-        </div>
+          <a class="btn btn-secondary btn-sm" href="how-it-works.html">See the problem, architecture & roadmap →</a>
+        </article>
       </section>
     </main>
 
     <footer>
-      <nav class="footer-nav">
-        <a href="how-it-works.html">How it works</a>
-        <span>•</span>
-        <a href="privacy.html">Privacy</a>
-        <span>•</span>
-        <a href="terms.html">Terms</a>
-        <span>•</span>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="how-it-works.html">How it works</a><span>•</span>
+        <a href="privacy.html">Privacy</a><span>•</span>
+        <a href="terms.html">Terms</a><span>•</span>
         <button id="manageConsentBtn" class="btn-text-link">Data preferences</button>
       </nav>
       <p class="copyright">© 2026 ZenTimer · Local-first by design</p>
+      <p class="footer-note">Built for personal focus, study, mindfulness and quiet work. Not a safety-critical alarm.</p>
     </footer>
   </div>
 
   <div id="gdprBanner" class="gdpr-banner hidden">
     <div class="gdpr-content">
-      <h3>Local data notice</h3>
-      <p>ZenTimer does not use third-party analytics or advertising. Session history, saved routines and custom audio remain on this device using browser storage.</p>
+      <h3>Local data choice</h3>
+      <p>ZenTimer can keep routines, completed sessions and custom audio in your browser. You can use temporary mode instead. Either way, the timer itself still works.</p>
       <div class="gdpr-actions">
         <button id="gdprAccept" class="btn btn-primary btn-sm">Use local storage</button>
         <button id="gdprDecline" class="btn btn-secondary btn-sm">Use temporary mode</button>
@@ -342,31 +361,13 @@
   <div id="reflectionModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="reflectionTitle">
     <div class="modal-card glass">
       <div class="section-header">
-        <div>
-          <span class="eyebrow">SESSION COMPLETE</span>
-          <h2 id="reflectionTitle">How did that session feel?</h2>
-        </div>
-        <button class="icon-btn" id="closeReflectionBtn" title="Save & close">×</button>
+        <div><span class="eyebrow">SESSION COMPLETE</span><h2 id="reflectionTitle">How did that session feel?</h2></div>
+        <button class="icon-btn" id="closeReflectionBtn" title="Save & close" aria-label="Save and close">×</button>
       </div>
       <p id="reflectionSummary" class="muted"></p>
-      <label class="select-field">
-        <span>Focus rating</span>
-        <select id="focusRating">
-          <option value="5">5 — deeply focused</option>
-          <option value="4">4 — focused</option>
-          <option value="3" selected>3 — mixed</option>
-          <option value="2">2 — distracted</option>
-          <option value="1">1 — very distracted</option>
-        </select>
-      </label>
-      <label class="select-field">
-        <span>Reflection / note</span>
-        <textarea id="reflectionNote" maxlength="500" placeholder="What do you want to remember?"></textarea>
-      </label>
-      <div class="modal-actions">
-        <button id="skipReflectionBtn" class="btn btn-secondary">Skip</button>
-        <button id="saveReflectionBtn" class="btn btn-primary">Save reflection</button>
-      </div>
+      <label class="select-field"><span>Focus rating</span><select id="focusRating"><option value="5">5 — deeply focused</option><option value="4">4 — focused</option><option value="3" selected>3 — mixed</option><option value="2">2 — distracted</option><option value="1">1 — very distracted</option></select></label>
+      <label class="select-field"><span>Reflection / note</span><textarea id="reflectionNote" maxlength="500" placeholder="What do you want to remember?"></textarea></label>
+      <div class="modal-actions"><button id="skipReflectionBtn" class="btn btn-secondary">Skip for now</button><button id="saveReflectionBtn" class="btn btn-primary">Save reflection</button></div>
     </div>
   </div>
 
@@ -378,16 +379,14 @@
   </div>
 
   <div id="visualAlert" class="visual-alert hidden">
-    <div class="visual-alert-card">
-      <span>✦</span>
-      <strong>Session Complete</strong>
-      <button class="btn btn-primary btn-sm" id="dismissVisualBtn">Dismiss</button>
-    </div>
+    <div class="visual-alert-card"><span>✦</span><strong>Session Complete</strong><button class="btn btn-primary btn-sm" id="dismissVisualBtn">Dismiss</button></div>
   </div>
 
   <audio id="silentAudio" loop preload="auto" aria-hidden="true" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="></audio>
   <audio id="customAudio" preload="auto"></audio>
+  <noscript><div class="noscript-card">ZenTimer needs JavaScript to run the timer. Please enable JavaScript in your browser and reload the page.</div></noscript>
 
   <script src="js/app.js"></script>
+  <script src="js/reliability.js"></script>
 </body>
 </html>

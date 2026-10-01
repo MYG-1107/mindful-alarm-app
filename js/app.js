@@ -123,7 +123,12 @@
   }
 
   function localStorageAllowed() {
-    return localStorage.getItem(CONSENT_KEY) !== "temporary";
+    try { return localStorage.getItem(CONSENT_KEY) !== "temporary"; }
+    catch { return false; }
+  }
+
+  function indexedDbAvailable() {
+    return typeof window !== "undefined" && "indexedDB" in window;
   }
 
   function openDb() {
@@ -142,7 +147,7 @@
   }
 
   async function idbPut(storeName, value) {
-    if (!localStorageAllowed()) return;
+    if (!localStorageAllowed() || !indexedDbAvailable()) return null;
     const db = await openDb();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(storeName, "readwrite");
@@ -153,7 +158,7 @@
   }
 
   async function idbAdd(storeName, value) {
-    if (!localStorageAllowed()) return null;
+    if (!localStorageAllowed() || !indexedDbAvailable()) return null;
     const db = await openDb();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(storeName, "readwrite");
@@ -165,6 +170,7 @@
   }
 
   async function idbGet(storeName, key) {
+    if (!indexedDbAvailable()) return null;
     const db = await openDb();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(storeName, "readonly");
@@ -176,6 +182,7 @@
   }
 
   async function idbAll(storeName) {
+    if (!indexedDbAvailable()) return [];
     const db = await openDb();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(storeName, "readonly");
@@ -187,6 +194,7 @@
   }
 
   async function idbDelete(storeName, key) {
+    if (!indexedDbAvailable()) return;
     const db = await openDb();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(storeName, "readwrite");
@@ -197,6 +205,7 @@
   }
 
   async function clearStore(storeName) {
+    if (!indexedDbAvailable()) return;
     const db = await openDb();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(storeName, "readwrite");
@@ -1008,8 +1017,13 @@
         state.sequence = [];
         hoursInput.value = 0;
         minutesInput.value = button.dataset.mins;
+        document.querySelectorAll(".btn-preset").forEach((item) => item.classList.toggle("active", item === button));
         resetTimer(false);
       });
+    });
+
+    document.querySelectorAll(".template-card").forEach((button) => {
+      button.addEventListener("click", () => applyTemplate(button.dataset.template));
     });
 
     $("addBlockBtn").addEventListener("click", addRoutineBlock);
@@ -1107,9 +1121,14 @@
     initConsent();
     renderRoutine();
     syncTimerPreview();
-    await loadCustomAudio();
-    await refreshSavedRoutines();
-    await refreshAnalytics();
+    try {
+      await loadCustomAudio();
+      await refreshSavedRoutines();
+      await refreshAnalytics();
+    } catch (error) {
+      console.warn("Local persistence unavailable; core timer remains usable.", error);
+      document.dispatchEvent(new CustomEvent("zentimer-storage-unavailable"));
+    }
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch((error) => console.warn("SW registration failed", error));
     }
